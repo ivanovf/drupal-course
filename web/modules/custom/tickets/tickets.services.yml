@@ -1,0 +1,6 @@
+services:
+  tickets.event_subscriber:
+    class: Drupal\tickets\EventSubscriber\TicketsSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }

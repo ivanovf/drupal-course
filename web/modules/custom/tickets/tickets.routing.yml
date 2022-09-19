@@ -1,0 +1,15 @@
+entity.ticket.settings:
+  path: 'admin/structure/ticket'
+  defaults:
+    _form: '\Drupal\tickets\Form\TicketSettingsForm'
+    _title: 'Ticket'
+  requirements:
+    _permission: 'administer ticket'
+
+tickets.home:
+  path: '/home'
+  defaults:
+    _title: 'Home'
+    _controller: '\Drupal\tickets\Controller\TicketsController::build'
+  requirements:
+    _permission: 'access content'
