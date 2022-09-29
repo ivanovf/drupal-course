@@ -1,5 +1,0 @@
-name: tickets
-type: module
-description: Entity that contains ticket data.
-package: Custom
-core_version_requirement: ^9 || ^10
