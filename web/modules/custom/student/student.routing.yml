@@ -1,0 +1,7 @@
+entity.student.settings:
+  path: 'admin/structure/student'
+  defaults:
+    _form: '\Drupal\student\Form\StudentSettingsForm'
+    _title: 'Student'
+  requirements:
+    _permission: 'administer student'

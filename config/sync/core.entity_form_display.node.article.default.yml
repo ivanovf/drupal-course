@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
+    - field.field.node.article.field_photo
     - field.field.node.article.field_tags
     - image.style.thumbnail
     - node.type.article
@@ -46,6 +47,14 @@ content:
   field_image:
     type: image_image
     weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_photo:
+    type: image_image
+    weight: 121
     region: content
     settings:
       progress_indicator: throbber

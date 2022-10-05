@@ -1,0 +1,7 @@
+name: Student
+type: module
+description: Student Entity
+package: Custom
+core: 8.x
+core_version_requirement: ^8 || ^9
+configure: student.config.page
