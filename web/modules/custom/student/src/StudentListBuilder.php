@@ -71,7 +71,7 @@ class StudentListBuilder extends EntityListBuilder {
     $header['label'] = $this->t('Label');
     $header['status'] = $this->t('Status');
     $header['created'] = $this->t('Created');
-    $header['changed'] = $this->t('Updated');
+    $header['photo'] = $this->t('Photo');
     return $header + parent::buildHeader();
   }
 
@@ -84,7 +84,7 @@ class StudentListBuilder extends EntityListBuilder {
     $row['label'] = $entity->toLink();
     $row['status'] = $entity->get('status')->value ? $this->t('Enabled') : $this->t('Disabled');
     $row['created'] = $this->dateFormatter->format($entity->get('created')->value);
-    $row['changed'] = $this->dateFormatter->format($entity->getChangedTime());
+    $row['photo']['data'] = $entity->getPhoto();
     return $row + parent::buildRow($entity);
   }
 

@@ -10,4 +10,20 @@ use Drupal\Core\Entity\EntityChangedInterface;
  */
 interface StudentInterface extends ContentEntityInterface, EntityChangedInterface {
 
+  /**
+   * Get student Photo.
+   *
+   * @return array
+   *   The student photo.
+   */
+  public function getPhoto();
+
+  /**
+   * Get URI of the photo.
+   *
+   * @return string
+   *   Image URI
+   */
+  public function getPhotoUri();
+
 }

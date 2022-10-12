@@ -38,7 +38,7 @@ use Drupal\student\StudentInterface;
  *   admin_permission = "administer student",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "label",
+ *     "label" = "name",
  *     "uuid" = "uuid",
  *   },
  *   links = {
@@ -62,8 +62,24 @@ class Student extends ContentEntityBase implements StudentInterface {
 
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['label'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Label'))
+    $fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setRequired(TRUE)
+      ->setSetting('max_length', 255)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -5,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'string',
+        'weight' => -5,
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['lastname'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Lastname'))
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
@@ -84,10 +100,23 @@ class Student extends ContentEntityBase implements StudentInterface {
       ->setSetting('default_image', [
         'alt' => 'Student photo',
       ])
-      ->setSetting('file_extensions', 'png, jpg, jpeg')
+      ->setSetting('file_extensions', 'png gif jpg jpeg')
       ->setDisplayOptions('form', [
         'preview_image_style' => 'thumbnail',
         'weight' => -5,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+      ])
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('User'))
+      ->setRequired(FALSE)
+      ->setSetting('target_type', 'user')
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('view', [
@@ -104,7 +133,7 @@ class Student extends ContentEntityBase implements StudentInterface {
         'settings' => [
           'display_label' => FALSE,
         ],
-        'weight' => 0,
+        'weight' => 30,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('view', [
@@ -137,6 +166,26 @@ class Student extends ContentEntityBase implements StudentInterface {
       ->setDescription(t('The time that the student was last edited.'));
 
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPhoto() : array {
+    return [
+      '#theme' => 'image_style',
+      '#style_name' => 'thumbnail',
+      '#uri' => $this->getPhotoUri(),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPhotoUri() : string {
+    /** @var \Drupal\file\Entity\File $image */
+    $image = $this->get('photo')->entity;
+    return $image->getFileUri();
   }
 
 }
