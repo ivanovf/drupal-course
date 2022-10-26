@@ -1,0 +1,7 @@
+name: academy
+type: module
+description: Provides additional functionality for the site.
+package: Academy
+core_version_requirement: ^9 || ^10
+dependencies:
+  - student

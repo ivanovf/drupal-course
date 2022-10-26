@@ -1,0 +1,8 @@
+academy.home:
+  path: '/academy/home'
+  defaults:
+    _title: 'Academy home'
+    _controller: '\Drupal\academy\Controller\AcademyController::build'
+  requirements:
+    _permission: 'access content'
+
