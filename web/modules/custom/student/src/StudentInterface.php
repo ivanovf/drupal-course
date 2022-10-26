@@ -26,4 +26,12 @@ interface StudentInterface extends ContentEntityInterface, EntityChangedInterfac
    */
   public function getPhotoUri();
 
+  /**
+   * Get Full name of a student.
+   *
+   * @return string
+   *   Fullname.
+   */
+  public function getFullName();
+
 }

@@ -188,4 +188,11 @@ class Student extends ContentEntityBase implements StudentInterface {
     return $image->getFileUri();
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getFullName() : string {
+    return $this->get('name')->value . ' ' . $this->get('lastname')->value;
+  }
+
 }

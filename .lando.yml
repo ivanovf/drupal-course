@@ -6,3 +6,21 @@ config:
 services:
   memcached:
     type: memcached:1.5.12
+
+  appserver:
+    overrides:
+      environment:
+        PHP_IDE_CONFIG: "serverName=appserver"
+        SIMPLETEST_BASE_URL: "http://appserver"
+        SIMPLETEST_DB: "sqlite://localhost/tmp/test.sqlite"
+        SERVER_ENV: "LOCAL"
+        MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
+  chrome:
+    type: compose
+    services:
+      image: drupalci/webdriver-chromedriver:production
+      command: chromedriver --log-path=/tmp/chromedriver.log --verbose --whitelisted-ips=
+tooling:
+  test:
+    service: appserver
+    cmd: "php /app/vendor/bin/phpunit -c /app/phpunit.xml"
